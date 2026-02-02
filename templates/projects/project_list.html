@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-5">
+        <h1 class="mb-4">API Projects</h1>
+        <div class="d-flex justify-content-end">
+             <a href="{% url 'projects:project_add' %}" class="btn btn-lg btn-success mb-3">
+                 <i class="bi bi-plus-square-fill me-2"></i>Add Project
+             </a>
+        </div>
+    </div>
+    {% for project in projects %}
+    <div class="card shadow-sm mb-4">
+        <a href="{% url 'projects:project_details' project.pk%}" class="text-decoration-none">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-5 border-end">
+                        <h2 class="card-title text-primary">{{ project.name }}</h2>
+                        <p class="mb-1"><strong>Language:</strong> <span class="badge bg-success">{{ project.language }}</span></p>
+                        <p class="text-muted small">Version: {{ project.version }}</p>
+                        <strong>Description:</strong>
+                        <p class="card-text"> {{ project.description|truncatechars:25 }}</p>
+                        <strong>Base URL:</strong>
+                        <a href="{{ project.base_url }}" class="text-decoration-none small text-truncate d-block mb-3">
+                            {{ project.base_url|default:"No link provided" }}
+                        </a>
+                    </div>
+
+                    <div class="col-md-7">
+                        <h5 class="text-muted border-bottom pb-2">API Endpoints</h5>
+                        <div class="list-group list-group-flush">
+                            {% for endpoint in project.endpoints.all %}
+                            <div class="list-group-item d-flex justify-content-between align-items-center bg-light mb-1 rounded">
+                                <div>
+                                    <span class="badge {% if endpoint.method == 'GET' %}bg-success{% elif endpoint.method == 'POST' %}bg-primary{% elif endpoint.method == 'PUT' %}bg-warning{% else %}bg-danger{% endif %} me-2">
+                                        {{ endpoint.method }}
+                                    </span>
+                                    <code>{{ endpoint.path }}</code>
+                                </div>
+                                <small class="text-muted">{{ endpoint.description|truncatechars:10 }}</small>
+                            </div>
+                            {% empty %}
+                            <p class="text-muted small p-2">No endpoints defined yet.</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+    {% empty %}
+    <div class="alert alert-info">No projects found. Add your first project from the Admin panel!</div>
+    {% endfor %}
+</div>
+{% endblock %}
