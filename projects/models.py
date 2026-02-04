@@ -1,7 +1,7 @@
 from django.core.validators import MinLengthValidator, MaxLengthValidator
 from django.db import models
 from common.models import TimeStampedModel
-from projects.validators import validate_version_format
+from projects.validators import validate_version_format, validate_base_url_format
 
 
 class Project(TimeStampedModel):
@@ -16,7 +16,7 @@ class Project(TimeStampedModel):
 
     name = models.CharField(max_length=100, validators=[MinLengthValidator(3), MaxLengthValidator(100)])
     version = models.CharField(max_length=100, validators=[validate_version_format])
-    base_url = models.URLField()
+    base_url = models.URLField(validators=[validate_base_url_format])
     description = models.TextField()
     language = models.CharField(choices=choices_languages.choices, max_length=50)
 

@@ -35,10 +35,8 @@ class ProjectCreateForm(ProjectForm):
                 'min_length': "The name is too short! It must be at least 3 characters.",
                 'max_length': "The name is too long!",
             },
-            'version': {
-                'invalid': "Invalid format. Please use 'number.number.number' (e.g. 1.0.2).",
-            },
             'base_url': {
-                'invalid': "Please enter a valid API URL address.",
+                'invalid': "Base URL must start with 'https://www.'",
             }
+
         }

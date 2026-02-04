@@ -1,43 +1,71 @@
 {% extends 'base.html' %}
 {% block title %}{{ page_title }}{% endblock %}
 {% block content %}
-    <div class="container mt-4">
     <div class="mb-4">
         <a href="{% url 'projects:projects_list' %}" class="btn btn-outline-secondary shadow-sm">
             <i class="bi bi-arrow-left"></i> Back to Projects
         </a>
     </div>
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <h3 class="h5 mb-3"> API Endpoints</h3>
-                {% for endpoint in project.endpoints.all %}
-                    <div class="card mb-3 shadow-sm border-start border-4 {% if endpoint.method == 'GET' %}border-success{% elif endpoint.method == 'POST' %}border-primary{% elif endpoint.method == 'PUT'%}border-warning{% else %}border-danger{% endif %}">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <h5 class="mb-1"><code>{{ endpoint.path }}</code></h5>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h3 class="h5 mb-0"><i class="me-2"></i>API Endpoints</h3>
+                <a href="{% url 'endpoints:add_endpoint' project.pk %}" class=" btn btn-sm btn-success">
+                    <i class="bi bi-node-plus-fill"></i> Add Endpoint
+                </a>
+            </div>
+
+            {% for endpoint in project.endpoints.all %}
+                <div class="card mb-3 shadow-sm border-start border-4 {% if endpoint.method == 'GET' %}border-success{% elif endpoint.method == 'POST' %}border-primary{% elif endpoint.method == 'PUT'%}border-warning{% else %}border-danger{% endif %}">
+                    <div class="card-body">
+                        <a href="{% url 'endpoints:detail_endpoint' endpoint.pk %}" class="stretched-link text-decoration-none text-reset"></a>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center gap-3">
                                 <span class="badge {% if endpoint.method == 'GET' %}bg-success{% elif endpoint.method == 'POST' %}bg-primary{% elif endpoint.method == 'PUT' %}bg-warning{% else %}bg-danger{% endif %}">
                                     {{ endpoint.method }}
                                 </span>
+                                <h5 class="mb-0"><code>{{ endpoint.path }}</code></h5>
                             </div>
-                            <p class="text-muted small mt-2 mb-0">{{ endpoint.description }}</p>
+
+                            <div class="btn-group" style="position: relative; z-index: 5;">
+                                <a href="{% url 'endpoints:edit_endpoint' endpoint.pk %}" class="btn btn-sm btn-outline-primary" title="Edit Endpoint">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                <a href="{% url 'endpoints:delete_endpoint' endpoint.pk %}" class="btn btn-sm btn-outline-danger" title="Delete Endpoint">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                            </div>
                         </div>
 
+                        {% if endpoint.description %}
+                            <p class="text-muted small mt-2 mb-0">{{ endpoint.description }}</p>
+                        {% endif %}
+
+                        <div class="mt-2">
+                            {% for tag in endpoint.tags.all %}
+                                <span class="badge rounded-pill bg-light text-dark border small"><i class="bi-tag-fill"></i>{{ tag.name }}</span>
+                            {% endfor %}
+                        </div>
                     </div>
-                {% endfor %}
-            </div>
+                </div>
+            {% empty %}
+                <div class="alert alert-info text-center">No endpoints defined for this project.</div>
+            {% endfor %}
+        </div>
             <div class="col-md-8">
                 <div class="card shadow-sm border-0 mb-4">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h2 class="h4 text-primary font-weight-bold">{{ project.name }}</h2>
-                        <div class="d-flex gap-4">
-                        <a href="{% url 'projects:project_edit' project.pk %}" class="btn btn-sm btn-outline-primary ">
-                            <i class="bi bi-pencil"></i>Edit
-                        </a>
-                        <a href="{% url 'projects:project_delete' project.pk %}" class="btn btn-sm btn-outline-danger">
-                            <i class="bi bi-pencil"></i>Delete
-                        </a>
-                        </div>
+                            <h2 class="h4 text-primary font-weight-bold">{{ project.name }}</h2>
+                            <div class="d-flex gap-4">
+                                <a href="{% url 'projects:project_edit' project.pk %}" class="btn btn-sm btn-outline-primary ">
+                                    <i class="bi bi-pencil"></i>Edit
+                                </a>
+                                <a href="{% url 'projects:project_delete' project.pk %}" class="btn btn-sm btn-outline-danger">
+                                    <i class="bi bi-trash3-fill"></i>Delete
+                                </a>
+                            </div>
                         </div>
                         <hr>
                         <p><strong>Language: </strong> <span class="badge bg-info text-dark">{{ project.language }}</span></p>
@@ -50,5 +78,5 @@
                 </div>
             </div>
         </div>
-    </div>
+
 {% endblock %}

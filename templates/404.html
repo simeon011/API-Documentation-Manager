@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    .glass-dark {
+        background: rgba(33, 37, 41, 0.9);
+        backdrop-filter: blur(15px);
+        color: white;
+        border-radius: 30px;
+        border: 1px solid rgba(255,255,255,0.1);
+    }
+    .neon-text {
+        color: #0dcaf0;
+        text-shadow: 0 0 10px rgba(13, 202, 240, 0.5);
+    }
+</style>
+<div class="container d-flex align-items-center justify-content-center" style="min-height: 80vh;">
+    <div class="glass-dark p-5 text-center shadow-2xl">
+        <h1 class="display-1 fw-black neon-text">404</h1>
+        <hr class="bg-light opacity-25">
+        <p class="lead mb-4">Route "<strong>{{ request.path }}</strong>" is not registered.</p>
+        <a href="javascript:history.back()" class="btn btn-info text-white rounded-0 px-4">GO BACK</a>
+        <a href="/" class="btn btn-link text-white-50 text-decoration-none ms-3">Home</a>
+    </div>
+</div>
+{% endblock %}
