@@ -72,3 +72,4 @@ def project_add(request):
     }
 
     return render(request, 'projects/create_project.html', context)
+

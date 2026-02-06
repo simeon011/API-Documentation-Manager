@@ -1,22 +1,92 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container mt-4">
-    <h2 class="mb-4">Project Dashboard</h2>
-    <div class="row">
-        <div class="col-md-4">
-            <div class="card shadow-sm border-primary mb-3">
-                <div class="card-body text-center">
-                    <h5 class="card-title text-muted">Total Projects</h5>
-                    <p class="display-4 fw-bold">5</p>
+<div class="container mt-5">
+    <div class="row mb-4">
+        <div class="col">
+            <h1 class="h3 fw-bold text-dark"><i class="bi bi-speedometer2 me-2"></i>Dashboard</h1>
+            <p class="text-muted">Welcome back! Here is what's happening in your API ecosystem.</p>
+        </div>
+    </div>
+
+    <div class="row g-4 mb-5">
+        <div class="col-md-6 col-lg-4">
+            <div class="card border-0 shadow-sm bg-primary text-white p-3">
+                <div class="d-flex align-items-center">
+                    <div class="display-5 me-3"><i class="bi bi-folder"></i></div>
+                    <div>
+                        <div class="h2 mb-0 fw-bold">{{ sum_projects }}</div>
+                        <div class="small opacity-75">Total Projects</div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card shadow-sm border-success mb-3">
-                <div class="card-body text-center">
-                    <h5 class="card-title text-muted">Active Endpoints</h5>
-                    <p class="display-4 fw-bold text-success">24</p>
+        <div class="col-md-6 col-lg-4">
+            <div class="card border-0 shadow-sm bg-success text-white p-3">
+                <div class="d-flex align-items-center">
+                    <div class="display-5 me-3"><i class="bi bi-diagram-3"></i></div>
+                    <div>
+                        <div class="h2 mb-0 fw-bold">{{ sum_endpoints }}</div>
+                        <div class="small opacity-75">Total Endpoints</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-white py-3 border-bottom d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0 fw-bold text-primary">Recently Updated Projects</h5>
+                    <a href="{% url 'projects:projects_list' %}" class="btn btn-sm btn-outline-primary">View All</a>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Project Name</th>
+                                    <th>Language</th>
+                                    <th>Endpoints</th>
+                                    <th>Last Update</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for project in latest_projects %}
+                                <tr>
+                                    <td>
+                                        <a href="{% url 'projects:project_details' project.pk %}" class="text-decoration-none fw-bold text-dark">
+                                            {{ project.name }}
+                                        </a>
+                                    </td>
+                                    <td><span class="badge bg-light text-dark border">{{ project.language }}</span></td>
+                                    <td>
+                                        <span class="badge rounded-pill bg-info text-dark">
+                                            {{ project.endpoints_count }}
+                                        </span>
+                                    </td>
+                                    <td class="small text-muted">{{ project.updated_at|timesince }} ago</td>
+                                </tr>
+                                {% empty %}
+                                <tr><td colspan="4" class="text-center py-4 text-muted">No projects found.</td></tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card border-0 shadow-sm bg-light">
+                <div class="card-body">
+                    <h5 class="fw-bold mb-3">Quick Actions</h5>
+                    <div class="d-grid gap-2">
+                        <a href="{% url 'projects:project_add' %}" class="btn btn-primary text-start shadow-sm">
+                            <i class="bi bi-plus-circle me-2"></i> New Project
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

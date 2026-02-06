@@ -33,6 +33,9 @@ def edit_endpoint(request, pk):
 
     return render(request, 'endpoints/edit_endpoints.html', context)
 
+    return render(request, 'endpoints/edit_endpoints.html', context)
+
+
 def delete_endpoint(request, pk):
     endpoint = get_object_or_404(Endpoint, pk=pk)
     form = DeleteEndpointForm(request.POST or None, instance=endpoint)
@@ -48,6 +51,7 @@ def delete_endpoint(request, pk):
     }
 
     return render(request, 'endpoints/delete_endpoint.html', context)
+
 
 def add_endpoint(request, pk):
     project = get_object_or_404(Project, pk=pk)
