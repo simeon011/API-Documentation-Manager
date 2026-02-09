@@ -11,7 +11,7 @@
         </div>
     </div>
     {% for project in projects %}
-    <div class="card shadow-sm mb-4">
+    <div class="card shadow-sm mb-4 transition-hover">
         <a href="{% url 'projects:project_details' project.pk%}" class="text-decoration-none">
             <div class="card-body">
                 <div class="row">
@@ -50,7 +50,18 @@
         </a>
     </div>
     {% empty %}
-    <div class="alert alert-info">No projects found. Add your first project from the Admin panel!</div>
+    <div class="alert alert-info">No projects found. Add your first project.</div>
     {% endfor %}
 </div>
+
+<style>
+    .transition-hover {
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .transition-hover:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 0.75rem 1.5rem rgba(0,0,0,0.08) !important;
+    }
+
+</style>
 {% endblock %}

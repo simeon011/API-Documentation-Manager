@@ -14,7 +14,7 @@ def custom_404_view(request, exception):
 def dashboard(request):
     sum_projects = Project.objects.count()
     sum_endpoints = Endpoint.objects.count()
-    latest_projects = Project.objects.annotate(endpoints_count=Count('endpoints')).order_by('-updated_at')[:3]
+    latest_projects = Project.objects.annotate(endpoints_count=Count('endpoints')).order_by('-updated_at')[:5]
 
     context = {
         'sum_projects': sum_projects,

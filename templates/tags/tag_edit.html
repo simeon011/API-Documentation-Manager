@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <nav aria-label="breadcrumb" class="mb-4">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'endpoints:tags_list' %}" class="text-decoration-none">Tags</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'endpoints:tag_details' tag.pk %}" class="text-decoration-none">{{ tag.name }}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Edit</li>
+                </ol>
+            </nav>
+
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-primary text-dark py-3">
+                    <h5 class="mb-0 fw-bold">
+                        <i class="bi bi-pencil-square me-2"></i>Edit Tag: {{ tag.name }}
+                    </h5>
+                </div>
+                <div class="card-body p-4">
+                    <form method="POST">
+                        {% csrf_token %}
+                        
+                        {% for field in form %}
+                            <div class="mb-3">
+                                <label class="form-label fw-bold text-secondary">{{ field.label }}</label>
+                                {{ field }}
+                                {% if field.help_text %}
+                                    <div class="form-text small">{{ field.help_text }}</div>
+                                {% endif %}
+                                {% if field.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {{ field.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                            <a href="{% url 'endpoints:tag_details' tag.pk %}" class="btn btn-outline-secondary px-4 rounded-pill">
+                                Cancel
+                            </a>
+                            <button type="submit" class="btn btn-primary px-4 rounded-pill shadow-sm fw-bold">
+                                Update Tag
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="alert alert-info border-0 shadow-sm mt-4 small">
+                <i class="bi bi-info-circle-fill me-2"></i>
+                Changing the tag name will update it across all <strong>{{ tag.endpoint_set.count }}</strong> linked endpoints.
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

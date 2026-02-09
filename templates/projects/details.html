@@ -17,7 +17,7 @@
             </div>
 
             {% for endpoint in project.endpoints.all %}
-                <div class="card mb-3 shadow-sm border-start border-4 {% if endpoint.method == 'GET' %}border-success{% elif endpoint.method == 'POST' %}border-primary{% elif endpoint.method == 'PUT'%}border-warning{% else %}border-danger{% endif %}">
+                <div class="card mb-3 shadow-sm border-start transition-hover border-4 {% if endpoint.method == 'GET' %}border-success{% elif endpoint.method == 'POST' %}border-primary{% elif endpoint.method == 'PUT'%}border-warning{% else %}border-danger{% endif %}">
                     <div class="card-body">
                         <a href="{% url 'endpoints:detail_endpoint' endpoint.pk %}" class="stretched-link text-decoration-none text-reset"></a>
                         <div class="d-flex justify-content-between align-items-center">
@@ -85,5 +85,14 @@
                 </div>
             </div>
         </div>
+<style>
+    .transition-hover {
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .transition-hover:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 0.75rem 1.5rem rgba(0,0,0,0.08) !important;
+    }
 
+</style>
 {% endblock %}

@@ -16,30 +16,67 @@
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
-        <div class="container">
-            <a class="navbar-brand" href="{% url 'dashboard' %}">APILab</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href = {% url 'projects:project_add' %}>Add Project</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'projects:projects_list' %}">Projects</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Endpoints</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin" target="_blank">Admin Panel</a>
-                    </li>
-                </ul>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm sticky-top mb-4">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="{% url 'dashboard' %}">
+            <i class="bi bi-braces-asterisk text-info me-2"></i>API Registry
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}" href="{% url 'dashboard' %}">
+                        <i class="bi bi-speedometer2 me-1"></i> Dashboard
+                    </a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="projectsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-folder2 me-1"></i> Projects
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark shadow" aria-labelledby="projectsDropdown">
+                        <li>
+                            <a class="dropdown-item" href="{% url 'projects:projects_list' %}">
+                                <i class="bi bi-list-ul me-2"></i>All Projects
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="projectsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-folder2 me-1"></i> Tags
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark shadow" aria-labelledby="projectsDropdown">
+                        <li>
+                            <a class="dropdown-item" href="{% url 'endpoints:tags_list' %}">
+                                <i class="bi bi-list-ul me-2"></i>All Tags
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <form class="d-flex me-3" action="{% url 'projects:projects_list' %}" method="GET">
+                <div class="input-group input-group-sm">
+                    <input class="form-control bg-dark text-white border-secondary" type="search" name="q" aria-label="Search">
+                    <button class="btn btn-outline-info" type="submit"><i class="bi bi-search"></i></button>
+                </div>
+            </form>
+
+            <div class="navbar-nav">
+                <a href="{% url 'projects:project_add' %}" class="btn btn-success btn-sm rounded-pill px-3 shadow-sm">
+                    <i class="bi bi-plus-lg me-1"></i> New Project
+                </a>
             </div>
         </div>
-    </nav>
+    </div>
+</nav>
 
     <div class="container my-5">
         {% block content %}

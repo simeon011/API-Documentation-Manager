@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 
 from projects.forms import ProjectEditForm, ProjectDeleteForm, ProjectCreateForm
@@ -5,11 +6,19 @@ from projects.models import Project
 
 
 def project_list_view(request):
-    projects = Project.objects.all()
+    projects = Project.objects.prefetch_related('endpoints').all()
+    query = request.GET.get('q')
+    if query:
+        projects = projects.filter(
+            Q(name__icontains=query) |
+            Q(description__icontains=query) |
+            Q(language__icontains=query)
+        )
 
     context = {
         'projects': projects,
-        'page_title': 'All Projects'
+        'page_title': 'All Projects',
+        'query': query
     }
 
     return render(request, 'projects/project_list.html', context)

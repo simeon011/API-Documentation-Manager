@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 
-from endpoints.forms import EditEndpointForm, DeleteEndpointForm, DetailsEndpointForm, CreateEndpointForm
-from endpoints.models import Endpoint
+from endpoints.forms import EditEndpointForm, DeleteEndpointForm, DetailsEndpointForm, CreateEndpointForm, \
+    DetailsTagForm, EditTagForm, AddTag
+from endpoints.models import Endpoint, Tag
 from projects.models import Project
 
 
@@ -71,3 +72,54 @@ def add_endpoint(request, pk):
     }
 
     return render(request, 'endpoints/create_endpoint.html', context)
+
+def tags_list(request):
+    tags = Tag.objects.all()
+
+    context = {
+        'tags': tags,
+        'page_title': 'All Tags'
+    }
+
+    return render(request, 'tags/tags_list.html', context)
+
+def tag_details(request, pk):
+    tag = get_object_or_404(Tag, pk=pk)
+    endpoint = tag.endpoint_set.all()
+
+    context = {
+        'tag': tag,
+        'endpoint': endpoint,
+        'page_title': f'{tag} Details'
+    }
+
+    return render(request, 'tags/tag_detail.html', context)
+
+def edit_tag(request, pk):
+    tag = get_object_or_404(Tag, pk=pk)
+    form = EditTagForm(request.POST or None, instance=tag)
+    if request.method == 'POST' and form.is_valid():
+        form.save()
+        return redirect('endpoints:tag_details', pk=tag.pk)
+
+    context = {
+        'tag': tag,
+        'form': form,
+        'page_title': f'{tag} Edit'
+    }
+
+    return render(request, 'tags/tag_edit.html', context)
+
+def add_tag(request):
+    form = AddTag(request.POST or None)
+
+    if request.method == "POST" and form.is_valid():
+        tag = form.save()
+        return redirect('endpoints:tag_details', pk=tag.pk)
+
+    context = {
+        'form': form,
+        'page_title': 'Add Tag'
+    }
+
+    return render(request, 'tags/add_tag.html', context)
