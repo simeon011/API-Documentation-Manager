@@ -13,8 +13,6 @@ class EndpointForm(forms.ModelForm):
             'method': forms.Select(attrs={'class': 'form-select'}),
             'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 4}),
         }
-class DetailsEndpointForm(EndpointForm):
-    ...
 class EditEndpointForm(EndpointForm):
     ...
 class DeleteEndpointForm(EndpointForm):
@@ -26,8 +24,6 @@ class TagForm(forms.ModelForm):
     class Meta:
         model = Tag
         fields = '__all__'
-class DetailsTagForm(TagForm):
-    ...
 class EditTagForm(TagForm):
     ...
 class AddTag(TagForm):

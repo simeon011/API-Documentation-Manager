@@ -1,7 +1,8 @@
+from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 
-from endpoints.forms import EditEndpointForm, DeleteEndpointForm, DetailsEndpointForm, CreateEndpointForm, \
-    DetailsTagForm, EditTagForm, AddTag
+from endpoints.forms import EditEndpointForm, DeleteEndpointForm, CreateEndpointForm, \
+    EditTagForm, AddTag
 from endpoints.models import Endpoint, Tag
 from projects.models import Project
 
@@ -75,10 +76,15 @@ def add_endpoint(request, pk):
 
 def tags_list(request):
     tags = Tag.objects.all()
+    queryset = request.GET.get('q')
+
+    if queryset:
+        tags = Tag.objects.filter(name__icontains=queryset)
 
     context = {
         'tags': tags,
-        'page_title': 'All Tags'
+        'page_title': 'All Tags',
+        'queryset': queryset,
     }
 
     return render(request, 'tags/tags_list.html', context)

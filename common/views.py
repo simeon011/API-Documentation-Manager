@@ -1,5 +1,4 @@
 from django.db.models import Count
-from django.shortcuts import render
 
 from django.shortcuts import render
 

@@ -6,10 +6,8 @@ from common.views import dashboard
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    # Dashboard-ът става начална страница
     path('', dashboard, name='dashboard'),
 
-    # Включваме проектите с namespace
     path('projects/', include('projects.urls', namespace='projects')),
     path('endpoints/', include('endpoints.urls', namespace='endpoints')),
 ]

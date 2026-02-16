@@ -11,28 +11,28 @@
                 <div class="card-body p-4">
                         <div class="mb-3">
                             <label for="name" class="form-label fw-bold">Project Name</label>
-                            <input type="text" name="name" id="name" class="form-control" value="{{ project.name }}" required>
+                            <input type="text" name="name" id="name" class="form-control" value="{{ project.name }}" disabled>
                         </div>
 
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label for="language" class="form-label fw-bold">Language</label>
-                                <input type="text" name="language" id="language" class="form-control" value="{{ project.language }}">
+                                <input type="text" name="language" id="language" class="form-control" value="{{ project.language }}" disabled >
                             </div>
                             <div class="col-md-6">
                                 <label for="version" class="form-label fw-bold">Version</label>
-                                <input type="text" name="version" id="version" class="form-control" value="{{ project.version }}">
+                                <input type="text" name="version" id="version" class="form-control" value="{{ project.version }}" disabled>
                             </div>
                         </div>
 
                         <div class="mb-3">
                             <label for="base_url" class="form-label fw-bold">Base URL</label>
-                            <input type="url" name="base_url" id="base_url" class="form-control" value="{{ project.base_url }}">
+                            <input type="url" name="base_url" id="base_url" class="form-control" value="{{ project.base_url }}" disabled>
                         </div>
 
                         <div class="mb-4">
                             <label for="description" class="form-label fw-bold">Description</label>
-                            <textarea name="description" id="description" class="form-control" rows="4">{{ project.description }}</textarea>
+                            <textarea name="description" id="description" class="form-control" rows="4" disabled>{{ project.description }}</textarea>
                         </div>
 
                         <div class="d-flex justify-content-between border-top pt-3">

@@ -2,7 +2,7 @@ from django.urls import path, include
 
 from endpoints.views import edit_endpoint, delete_endpoint, details_endpoint, add_endpoint, tags_list, tag_details, \
     edit_tag, add_tag
-from projects.views import project_add
+
 
 app_name = 'endpoints'
 
