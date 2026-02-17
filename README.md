@@ -9,4 +9,4 @@
 ---
 
 ## 🏗 Key Parts (Technical Core)
- - [Models](#)
+ - [Models](https://github.com/simeon011/API-Documentation-Manager/blob/main/docs/models.md)
