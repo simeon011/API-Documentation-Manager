@@ -31,7 +31,7 @@ Instead of defining `created_at` and `updated_at` in every single model, we simp
 
 ---
 
-#### **Next model** :  [Endpoints](#)
+#### **Next model** :  [Endpoints](https://github.com/simeon011/API-Documentation-Manager/blob/main/docs/models/endpoints.md)
 ---
-[Home](#)
+[Home](https://github.com/simeon011/API-Documentation-Manager/blob/main/README.md)
 
