@@ -4,7 +4,7 @@
 ---
 
 ## 🖥️ Setup & Installation
- - [Project Setup](#)
+ - [Project Setup](https://github.com/simeon011/API-Documentation-Manager/blob/main/docs/project_setup.md)
 
 ---
 
