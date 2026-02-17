@@ -49,6 +49,6 @@ The `method` field utilizes `models.TextChoices`, restricting entries to valid H
 
 ---
 
-#### **Next model**: [Projects](#)
+#### **Next model**: [Projects](https://github.com/simeon011/API-Documentation-Manager/blob/main/docs/models/projects.md)
 ---
 [Home](https://github.com/simeon011/API-Documentation-Manager/blob/main/README.md)
