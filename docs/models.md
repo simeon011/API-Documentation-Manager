@@ -9,16 +9,16 @@ Click on any model name below to navigate to its detailed documentation section.
 
 ## System Architecture & Models
 
-### 1. [Common Models](#)
+### 1. [Common Models](https://github.com/simeon011/API-Documentation-Manager/blob/main/docs/models/common.md)
 *The infrastructure layer of the project.*
 * **TimeStampedModel**: An abstract base class that provides automated `created_at` and `updated_at` fields to all other models. It ensures a consistent audit trail without code duplication.
 
-### 2. [Endpoints Application](#)
+### 2. [Endpoints Application](https://github.com/simeon011/API-Documentation-Manager/blob/main/docs/models/endpoints.md)
 *The functional layer describing the API resources.*
 * **Endpoint**: Documents specific API routes. It uses a **Many-to-One** relationship with `Project` and features custom path validation to ensure industry-standard formatting.
 * **Tag**: A metadata entity used for categorization. It uses a **Many-to-Many** relationship with `Endpoint` to allow flexible, non-linear organization of resources.
 
-### 3. [Projects Application](#)
+### 3. [Projects Application](https://github.com/simeon011/API-Documentation-Manager/blob/main/docs/models/projects.md)
 *The top-level container for all documentation.*
 * **Project**: Represents a standalone software service. Stores critical metadata such as programming language, versioning (via Regex validation), and secure base URLs.
 ---
