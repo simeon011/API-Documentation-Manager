@@ -40,7 +40,7 @@ It is highly recommended to use a virtual environment to keep dependencies isola
 
 ---
 
-## 4. Environment Configuration (.env)
+## 3. Environment Configuration (.env)
 The project uses ```python-decouple``` to manage sensitive settings. You need to create a file named ```.env``` in the root directory (where ```manage.py``` is located) and fill in your credentials:
 ```
 SECRET_KEY=your_secret_django_key
@@ -53,6 +53,18 @@ DB_PASSWORD=your_postgres_password
 DB_HOST=127.0.0.1
 DB_PORT=5432
 ```
+---
+## 4. Database Initialization
+
+### Step 1: Create Database
+Make sure you have created a database named ```apilab_db``` in your PostgreSQL server before proceeding.
+
+### Step 2: Run Migrations
+
+This will create the tables and automatically populate the database with our initial seed data (6 projects, 18+ endpoints, and tags).
+
+```python manage.py migrate```
+
 ---
 
 ## 5. Running the Application
@@ -70,6 +82,8 @@ You can now access the application at: http://127.0.0.1:8000/
 | **Database Connection Error** | Verify that PostgreSQL is running and the credentials in `.env` are correct. |
 | **ModuleNotFoundError** | Ensure your virtual environment is active and run `pip install -r requirements.txt` again. |
 | **Migrations Error** | Ensure the database named in `DB_NAME` actually exists in your PostgreSQL server. |
+| **Static files (Icons) not loading** | Clear browser cache (Ctrl+F5) or check STATICFILES_DIRS in settings.py. |
+| **Relation "projects_project" does not exist** | You skipped the python manage.py migrate step. | 
 
 ---
 
